@@ -52,7 +52,7 @@ public class Homework {
         driver.findElement(By.id("NewProjNameInput")).sendKeys(nameProject);
         driver.findElement(By.id("NewProjNameButton")).click();
         Thread.sleep(3000);
-        int actualResult=driver.findElements(By.xpath(" //td[text()='"+nameProject+"'] ")).size();
+        int actualResult=driver.findElements(By.xpath(" //td[text()='" + nameProject + "'] ")).size();
         Assertions.assertTrue(actualResult >= 1,"ERROR The project was not created");
 
 
@@ -66,13 +66,13 @@ public class Homework {
         driver.findElement(By.id("NewItemContentInput")).sendKeys(nameTask);
         driver.findElement(By.id("NewItemAddButton")).click();
         Thread.sleep(3000);
-        actualResult = driver.findElements(By.xpath("//div[.="+nameProject+"]")).size();
+        actualResult = driver.findElements(By.xpath("//div[.='" + nameTask + "']")).size();
         Assertions.assertTrue(actualResult >= 1,"ERROR THE TASK WAS NOT CREATED");
 
 
         /*  Update Task
         * -----------------------
-        * Click on modal menu icon          ->  //img[@itemid] {{Correct because if there are more task created this xpath is not unique}}
+        * Click on modal menu icon          ->  //img[@class='ItemMenu' and @itemid]
         * Click on Edit                     ->  //ul[contains(@id,\"itemContextMenu\")]/li[@class]/a[text()=\"Edit\"]
         * Clear text on the task name field ->  //textarea[@itemid]
         * Input new task name               ->  //textarea[@itemid]
@@ -81,13 +81,13 @@ public class Homework {
         * */
         nameTask = "AbelUpdate " + new Date().getTime();
 
-        driver.findElement(By.xpath("img[@itemid]")).click();
+        driver.findElement(By.xpath("//img[@class='ItemMenu' and @itemid]")).click();
         driver.findElement(By.xpath("//ul[contains(@id,\"itemContextMenu\")]/li[@class]/a[text()=\"Edit\"]")).click();
         driver.findElement(By.xpath("textarea[@itemid]")).clear();
         driver.findElement(By.xpath("textarea[@itemid]")).sendKeys(nameTask);
         driver.findElement(By.xpath("img[@id='ItemEditSubmit' and @itemid]")).click();
         Thread.sleep(5000);
-        actualResult = driver.findElements(By.xpath("//div[.="+nameProject+"]")).size();
+        actualResult = driver.findElements(By.xpath("//div[.='" + nameTask + "']")).size();
         Assertions.assertTrue(actualResult >= 1, "ERROR THE TASK WAS NOT EDITED");
 
 
