@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.Date;
 
@@ -47,7 +48,7 @@ public class Homework {
         *   Verify that the project name is present in the Projects list
         */
 
-        String nameProject = "Abel"+new Date().getTime();
+        String nameProject = "Abel " + new Date().getTime();
         driver.findElement(By.xpath("//td[text()='Add New Project']")).click();
         driver.findElement(By.id("NewProjNameInput")).sendKeys(nameProject);
         driver.findElement(By.id("NewProjNameButton")).click();
@@ -79,13 +80,19 @@ public class Homework {
         * Click on Submit icon              ->  //img[@id='ItemEditSubmit' and @itemid]
         * Verify that the task name was updated
         * */
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(By.xpath("//div/div/ul/li[@class and @itemid]"))).perform();
+
         nameTask = "AbelUpdate " + new Date().getTime();
+
 
         driver.findElement(By.xpath("//img[@class='ItemMenu' and @itemid]")).click();
         driver.findElement(By.xpath("//ul[contains(@id,\"itemContextMenu\")]/li[@class]/a[text()=\"Edit\"]")).click();
-        driver.findElement(By.xpath("textarea[@itemid]")).clear();
-        driver.findElement(By.xpath("textarea[@itemid]")).sendKeys(nameTask);
-        driver.findElement(By.xpath("img[@id='ItemEditSubmit' and @itemid]")).click();
+        driver.findElement(By.xpath("//td/div/div/textarea")).clear();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//td/div/div/textarea")).sendKeys(nameTask);
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//td/div/div/img[@src='/Images/save.png']")).click();
         Thread.sleep(5000);
         actualResult = driver.findElements(By.xpath("//div[.='" + nameTask + "']")).size();
         Assertions.assertTrue(actualResult >= 1, "ERROR THE TASK WAS NOT EDITED");
