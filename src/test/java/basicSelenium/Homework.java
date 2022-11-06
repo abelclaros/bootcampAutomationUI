@@ -32,56 +32,66 @@ public class Homework {
         /*Login*/
 
         driver.findElement(By.xpath("//img[contains(@src,'pagelogin')]")).click();
-        Thread.sleep(1000);
         driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxEmail")).sendKeys("abelclaros@hotmail.com");
-        Thread.sleep(1000);
         driver.findElement(By.id("ctl00_MainContent_LoginControl1_TextBoxPassword")).sendKeys("12345");
-        Thread.sleep(1000);
         driver.findElement(By.id("ctl00_MainContent_LoginControl1_ButtonLogin")).click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         Assertions.assertTrue(driver.findElement(By.id("ctl00_HeaderTopControl1_LinkButtonLogout")).isDisplayed()
                 ,"ERROR login was incorrect");
 
-        /*Create Project*/
+        /*  Create Project
+        -----------------------
+        *   Add new project             ->      //td[text()='Add New Project']
+        *   Fill project text space     ->      NewProjNameInput
+        *   Click Add                   ->      NewProjNameButton
+        *   Verify that the project name is present in the Projects list
+        */
 
-        String nameProject="Abel"+new Date().getTime();
-
-        driver.findElement(By.xpath("///td[text()='Add New Project']")).click();
+        String nameProject = "Abel"+new Date().getTime();
+        driver.findElement(By.xpath("//td[text()='Add New Project']")).click();
         driver.findElement(By.id("NewProjNameInput")).sendKeys(nameProject);
         driver.findElement(By.id("NewProjNameButton")).click();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         int actualResult=driver.findElements(By.xpath(" //td[text()='"+nameProject+"'] ")).size();
-        Assertions.assertTrue(actualResult >= 1
-                ,"ERROR The project was not created");
-
-        /*Create Task*/
-
-        String nameTask="Abel Task"+new Date().getTime();
-
-        driver.findElement(By.xpath("//*[@id=\"NewItemContentInput\"]")).sendKeys(nameTask);
-        driver.findElement(By.xpath("//*[@id=\"NewItemAddButton\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"ItemId_11078655\"]/table/tbody/tr/td[3]/div[4]")).click();
-        Thread.sleep(1000);
-        actualResult=driver.findElements(By.xpath(" //td[text()='"+nameTask+"'] ")).size();
-        Assertions.assertTrue(actualResult >= 1
-                ,"ERROR The project was not created");
+        Assertions.assertTrue(actualResult >= 1,"ERROR The project was not created");
 
 
-        /*Update Task*/
+        /*  Create Task
+        ----------------------
+        *   Fill task text space        ->      NewItemContentInput
+        *   Click Add                   ->      NewItemAddButton
+        *   Verify that the task name is present in the Task list
+        */
+        String nameTask = "Abel " + new Date().getTime();
+        driver.findElement(By.id("NewItemContentInput")).sendKeys(nameTask);
+        driver.findElement(By.id("NewItemAddButton")).click();
+        Thread.sleep(3000);
+        actualResult = driver.findElements(By.xpath("//div[.="+nameProject+"]")).size();
+        Assertions.assertTrue(actualResult >= 1,"ERROR THE TASK WAS NOT CREATED");
 
-        nameTask="Abel Task Update"+new Date().getTime();
 
-        driver.findElement(By.xpath("//*[@id=\"ItemId_11078655\"]/table/tbody/tr/td[4]/div/img")).click();
-        driver.findElement(By.xpath("//ul[@id=\"projectContextMenu\"]//a[text()='Edit']")).click();
-        driver.findElement(By.xpath("//*[@id=\"ItemId_11078655\"]/table/tbody/tr/td[3]/div[4]")).clear();
-        driver.findElement(By.xpath("//*[@id=\"ItemId_11078655\"]/table/tbody/tr/td[3]/div[4]")).sendKeys(nameTask);
-        driver.findElement(By.xpath("//td/div/img[@id='ItemEditSubmit']")).click();
-        Thread.sleep(1000);
-        actualResult=driver.findElements(By.xpath(" //td[text()='"+nameTask+"'] ")).size();
-        Assertions.assertTrue(actualResult >= 1
-                ,"ERROR The project was not updated");
+        /*  Update Task
+        * -----------------------
+        * Click on modal menu icon          ->  //img[@itemid] {{Correct because if there are more task created this xpath is not unique}}
+        * Click on Edit                     ->  //ul[contains(@id,\"itemContextMenu\")]/li[@class]/a[text()=\"Edit\"]
+        * Clear text on the task name field ->  //textarea[@itemid]
+        * Input new task name               ->  //textarea[@itemid]
+        * Click on Submit icon              ->  //img[@id='ItemEditSubmit' and @itemid]
+        * Verify that the task name was updated
+        * */
+        nameTask = "AbelUpdate " + new Date().getTime();
 
-//*[@id="ItemId_11078655"]/table/tbody/tr/td[3]/div[4]
+        driver.findElement(By.xpath("img[@itemid]")).click();
+        driver.findElement(By.xpath("//ul[contains(@id,\"itemContextMenu\")]/li[@class]/a[text()=\"Edit\"]")).click();
+        driver.findElement(By.xpath("textarea[@itemid]")).clear();
+        driver.findElement(By.xpath("textarea[@itemid]")).sendKeys(nameTask);
+        driver.findElement(By.xpath("img[@id='ItemEditSubmit' and @itemid]")).click();
+        Thread.sleep(5000);
+        actualResult = driver.findElements(By.xpath("//div[.="+nameProject+"]")).size();
+        Assertions.assertTrue(actualResult >= 1, "ERROR THE TASK WAS NOT EDITED");
+
+
+
 
     }
 }
