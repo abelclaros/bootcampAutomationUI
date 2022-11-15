@@ -17,7 +17,7 @@ public class Homework {
 
     @BeforeEach
     public void setup(){
-        System.setProperty("webdriver.chrome.driver","/usr/lib/chromium-browser/chromedriver");
+        System.setProperty("webdriver.chrome.driver","/usr/lib/chromium-structuredSelenium.browser/chromedriver");
         driver = new ChromeDriver();
         driver.get("http://todo.ly/");
     }
