@@ -31,19 +31,18 @@ public class Task_CRUD extends TestBaseTodoist{
         MainPageTodoist.addTaskButton.click();
         MainPageTodoist.taskName.setText(taskCreate);
         MainPageTodoist.submitAddTaskButton.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         Assertions.assertTrue(MainPageTodoist.isTaskCreated(taskCreate),"ERROR! Task was not created");
 
         //Update Task
         String taskUpdate = "Abel " + new Date().getTime();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         MainPageTodoist.taskOptions.click();
         MainPageTodoist.taskEdit.click();
-        MainPageTodoist.taskName.cleanSetText(taskUpdate);
+        MainPageTodoist.taskName.setText(taskUpdate);
         MainPageTodoist.submitAddTaskButton.click();
         Thread.sleep(1000);
         Assertions.assertTrue(MainPageTodoist.isTaskCreated(taskUpdate),"ERROR! Task was not updated");
-
         //Delete Task
         MainPageTodoist.taskOptions.click();
         MainPageTodoist.taskDelete.click();

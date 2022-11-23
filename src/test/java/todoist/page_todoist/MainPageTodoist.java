@@ -15,7 +15,7 @@ public class MainPageTodoist {
     public TextBox projectEditName = new TextBox(By.xpath("//input[@id ='edit_project_modal_field_name']"));
     public Button addTaskButton = new Button(By.xpath("//button[@class = 'plus_add_button']"));
     public TextBox taskName = new TextBox(By.xpath("//div[@data-offset-key and @data-editor]"));
-    public Button submitAddTaskButton = new Button(By.xpath("//span[contains(text(), 'Add task')]"));
+    public Button submitAddTaskButton = new Button(By.xpath("//button[@data-testid = 'task-editor-submit-button']"));
     public Button taskOptions = new Button(By.xpath("//button[@data-testid = 'more_menu']"));
     public Button taskEdit = new Button(By.xpath("//div[contains(text(), 'Edit task')]"));
     public Button taskDelete = new Button(By.xpath("//div[contains(text(), 'Delete task')]"));
